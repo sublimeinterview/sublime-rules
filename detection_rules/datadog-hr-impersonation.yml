@@ -1,0 +1,45 @@
+source: |-
+  type.inbound
+
+  // Sender is NOT from a real Datadog domain
+  and sender.email.domain.root_domain not in ("datadoghq.com", "datadog.com")
+
+  // NLU sees BEC / urgency, or we match simple urgency regex
+  and (
+    any(ml.nlu_classifier(body.current_thread.text).intents,
+        .name == "bec" and .confidence in ("medium", "high")
+    )
+    or any(ml.nlu_classifier(body.current_thread.text).entities,
+          .name == "urgency"
+    )
+    or regex.icontains(body.current_thread.text,
+                      "urgent",
+                      "immediately",
+                      "as soon as possible",
+                      "ASAP",
+                      "time[- ]sensitive",
+                      "respond today",
+                      "action required"
+    )
+  )
+
+  // Make sure it's actually HR/employee related
+  and regex.icontains(body.current_thread.text,
+                      "Human Resources",
+                      "People Team",
+                      "employee",
+                      "employment",
+                      "your role at Datadog",
+                      "Datadog policy"
+  )
+type: rule
+name: Datadog HR Impersonation
+authors:
+- name: Matthew Pascual-Mead
+description: 'This detection looks for any emails impersonating Datadog HR with urgent content. '
+references: []
+tags:
+- Impersonation
+attack_types:
+  - "BEC/Fraud"
+severity: critical

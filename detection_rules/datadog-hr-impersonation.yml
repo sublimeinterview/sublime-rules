@@ -39,7 +39,7 @@ authors:
 description: 'This detection uses body text and NLU classification to identify urgent messages that are trying to impersonate Datadog HR.'
 references: []
 tags:
-- Impersonation: Fraud
+- Impersonation
 - BEC/Fraud
 attack_types:
   - "Impersonation: Fraud"

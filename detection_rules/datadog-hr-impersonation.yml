@@ -32,16 +32,4 @@ source: |-
                       "your role at Datadog",
                       "Datadog policy"
   )
-type: rule
-name: Datadog HR Impersonation
-authors:
-- name: Matthew Pascual-Mead
-description: 'This detection uses body text and NLU classification to identify urgent messages that are trying to impersonate Datadog HR.'
-references: []
-tags:
-- Impersonation
-- BEC/Fraud
-attack_types:
-  - "Impersonation: Fraud"
-  - "BEC/Fraud"
-severity: critical
+

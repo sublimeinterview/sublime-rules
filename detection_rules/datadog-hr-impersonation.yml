@@ -25,7 +25,6 @@ source: |-
 
   // Make sure it's actually HR/employee related
   and regex.icontains(body.current_thread.text,
-                      "\bHR\b",
                       "Human Resources",
                       "People Team",
                       "employee",

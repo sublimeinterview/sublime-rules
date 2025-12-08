@@ -12,15 +12,6 @@ source: |-
     or any(ml.nlu_classifier(body.current_thread.text).entities,
           .name == "urgency"
     )
-    or regex.icontains(body.current_thread.text,
-                      "urgent",
-                      "immediately",
-                      "as soon as possible",
-                      "ASAP",
-                      "time[- ]sensitive",
-                      "respond today",
-                      "action required"
-    )
   )
 
   // Make sure it's actually HR/employee related
